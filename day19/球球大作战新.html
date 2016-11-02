@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			body{
+				background: url(img/cao.gif) no-repeat;
+				background-size:  cover;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#bigBall{
+				width: 70px;
+				height: 46px;
+				position: absolute;
+				left: 300px;
+				top: 300px;
+				
+				background: red;
+				line-height: 60px;
+				text-align: center;
+				background: url(img/yu1.gif);
+				background-size:  cover;
+			}
+			#smallBall{
+				width: 52px;
+				height: 52px;
+				position: absolute;
+				left: 400px;
+				top: 400px;
+				border-radius: 50%;
+				background: blue;
+				line-height: 30px;
+				text-align: center;
+				background: url(img/yu2.gif);
+				background-size:  cover;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload=function(){
+				var bigBall=document.getElementById("bigBall");
+				var smallBall=document.getElementById("smallBall");
+				var step=5;
+				var step2=(bigBall.offsetWidth+step)/1.52-bigBall.offsetHeight;
+				var viewwidth=document.documentElement.clientWidth-30;
+				var viewheight=document.documentElement.clientHeight-30;
+				document.onkeydown=function(evt){
+					evt=evt||window.event;
+					var code=evt.keyCode||evt.which;
+					switch(code){
+						case 37: bigBall.style.left=bigBall.offsetLeft-step+"px";break;
+						case 38: bigBall.style.top=bigBall.offsetTop-step+"px";break;
+						case 39: bigBall.style.left=bigBall.offsetLeft+step+"px";break;
+						case 40: bigBall.style.top=bigBall.offsetTop+step+"px";break;
+					}
+				
+				bigBall.r=bigBall.offsetWidth/2;
+				smallBall.r=smallBall.offsetWidth/2;
+				
+				bigBall.centerX=bigBall.offsetLeft+bigBall.r;
+				bigBall.centerY=bigBall.offsetTop+bigBall.r;
+				console.log(bigBall.centerX);
+				
+				smallBall.centerX=smallBall.offsetLeft+smallBall.r;
+				smallBall.centerY=smallBall.offsetTop+smallBall.r;
+				var distance=Math.pow(bigBall.centerX-smallBall.centerX,2)+Math.pow(bigBall.centerY-smallBall.centerY,2)
+				distance=Math.sqrt(distance);
+				//console.log(distance)
+				var differ=Math.round(distance-bigBall.r-smallBall.r);
+				//console.log(differ)
+				//处理两个小球约会后，发生了什么事
+				if(differ<0){
+					
+					smallBall.style.display="none";
+					bigBall.style.width=bigBall.offsetWidth+step+"px";
+					bigBall.style.height=bigBall.offsetHeight+step2+"px"
+					bigBall.style.lineHeight=bigBall.style.height;
+					//bigBall.innerHTML=bigBall.offsetWidth;
+					setTimeout(function(){
+						smallBall.style.display="block";
+						//smallBall.style.background="#"+Math.floor(Math.random()*255*255*255).toString(16);
+						smallBall.style.left=Math.floor(Math.random()*viewwidth)+"px";
+						smallBall.style.top=Math.floor(Math.random()*viewheight)+"px";
+					},500)
+				}
+			}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="bigBall">
+			
+		</div>
+		<div id="smallBall">
+			
+		</div>
+	</body>
+</html>
